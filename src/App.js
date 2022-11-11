@@ -1,23 +1,32 @@
-import logo from './logo.svg';
 import './App.css';
+import axios from './Axios';
+import { useState, useEffect } from 'react';
+import requests from './Requests';
 
 const App = () => {
+  const [posts, setPosts] = useState([])
+  useEffect(() => {
+    axios.get(requests.getPosts)
+      .then(resp => {
+        setPosts(resp.data)
+      })
+      .catch(e => {
+        console.log(e);
+      })
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>やること一覧</h1>
+      {posts.map((value, key) => {
+        return (
+          <div key={key}>
+            <p>{value.id}</p>
+            <p>{value.title}</p>
+            <p>{value.content}</p>
+          </div>
+        )
+      })}
     </div>
   );
 }
