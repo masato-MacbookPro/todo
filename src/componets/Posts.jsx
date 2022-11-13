@@ -1,8 +1,24 @@
 import axios from '../Axios';
 import { useState, useEffect } from 'react';
 import requests from '../Requests';
+import { Card, CardContent, Typography, Grid, makeStyles } from '@material-ui/core';
+
+const useStyles = makeStyles((theme) => ({
+  grid: {
+    margin: "auto"
+  },
+  card: {
+    width: "500px",
+    marginTop: "50px"
+  },
+  postWrappr: {
+    marginTop: "30px",
+    marginBottom: "50px"
+  }
+}))
 
 const Posts = () => {
+  const classes = useStyles()
   const [posts, setPosts] = useState([])
   useEffect(() => {
     axios.get(requests.getPosts)
@@ -15,17 +31,25 @@ const Posts = () => {
   }, []);
 
   return (
-    <div>
-      <h1>やること一覧</h1>
-      {posts.map((value, key) => {
-        return (
-          <div key={key}>
-            <p>{value.id}</p>
-            <p>{value.title}</p>
-            <p>{value.content}</p>
-          </div>
-        )
-      })}
+    <div className={classes.postWrappr}>
+      <Grid container>
+        {posts.map((value, key) => {
+          return (
+            <Grid key={key} className={classes.grid} >
+              <Card elevation={5} className={classes.card}>
+                <CardContent>
+                  <Typography variant="h3" component="h3">
+                    {value.title}
+                  </Typography>
+                  <Typography variant="h5">
+                    {value.content}
+                  </Typography>
+                </CardContent>
+              </Card>
+            </Grid>
+          )
+        })}
+      </Grid>
     </div>
   );
 }
