@@ -1,12 +1,12 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom"
-import Home from "../componets/Home"
 import Posts from "../componets/Posts";
+import HomeScreen from "../screens/HomeScreen";
 
 const Router = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<HomeScreen />} />
         <Route path="/posts" element={<Posts />} />
       </Routes>
     </BrowserRouter>
