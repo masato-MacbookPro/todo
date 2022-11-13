@@ -1,13 +1,10 @@
 import axios from "../Axios"
 import { useState } from "react"
 import requests from "../Requests"
-import { useNavigate } from "react-router-dom"
 import { Button, TextField, Grid, Box } from '@material-ui/core';
 import SendIcon from '@mui/icons-material/Send';
 
 const CreatePost = () => {
-  const navigate = useNavigate()
-
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
 
@@ -20,12 +17,10 @@ const CreatePost = () => {
 
   const sendFormData = () => {
     const data = createFormData()
-    const navigatePath = '/posts'
-    axios.post(requests.postPosts, data)
+    axios.post(requests.basePostsPath, data)
       .then(resp => {
         if (resp.status == 200) {
           notify("作成に成功しました")
-          navigate(navigatePath)
           window.location.reload();
         } else {
           notify("作成に失敗しました")

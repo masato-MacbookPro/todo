@@ -1,7 +1,9 @@
 import axios from '../Axios';
 import { useState, useEffect } from 'react';
 import requests from '../Requests';
-import { Card, CardContent, Typography, Grid, makeStyles } from '@material-ui/core';
+import { Card, CardContent, Typography, Grid, makeStyles, Box } from '@material-ui/core';
+import DeleteIcon from '@mui/icons-material/Delete';
+import DeletePost from './DeletePost';
 
 const useStyles = makeStyles((theme) => ({
   grid: {
@@ -14,6 +16,9 @@ const useStyles = makeStyles((theme) => ({
   postWrappr: {
     marginTop: "30px",
     marginBottom: "50px"
+  },
+  delete: {
+    textAlign: "right"
   }
 }))
 
@@ -21,7 +26,7 @@ const Posts = () => {
   const classes = useStyles()
   const [posts, setPosts] = useState([])
   useEffect(() => {
-    axios.get(requests.getPosts)
+    axios.get(requests.basePostsPath)
       .then(resp => {
         setPosts(resp.data)
       })
@@ -45,6 +50,11 @@ const Posts = () => {
                     {value.content}
                   </Typography>
                 </CardContent>
+                <Box className={classes.delete}>
+                  <DeleteIcon
+                    onClick={() => DeletePost(value.id)}
+                  />
+                </Box>
               </Card>
             </Grid>
           )
