@@ -1,5 +1,8 @@
+const basePostsUrl = `/api/v1/posts`
+
 const requests = {
-  getPosts: `/api/v1/posts`
+  getPosts: basePostsUrl,
+  postPosts: basePostsUrl
 }
 
 export default requests;
