@@ -19,15 +19,15 @@ const CreatePost = () => {
     const data = createFormData()
     axios.post(requests.basePostsPath, data)
       .then(resp => {
+        // console.log(resp);
         if (resp.status == 200) {
           notify("作成に成功しました")
           window.location.reload();
-        } else {
-          notify("作成に失敗しました")
         }
       })
       .catch(e => {
-        console.log(e);
+        console.log(e.response.status);
+        console.log(e.response.data);
       })
   }
 
